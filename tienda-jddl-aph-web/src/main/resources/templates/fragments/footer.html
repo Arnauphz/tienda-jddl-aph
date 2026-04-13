@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<footer id="footer" th:fragment="footer">
+    <div class="footer-top">
+        <div class="footer-brand">
+            <div class="nav-logo" style="font-size:1.6rem">Jugador 12</div>
+            <p>Tu tienda de referencia en accesorios y equipaciones de fútbol.</p>
+            <div class="footer-social">
+                <a href="#" class="social-btn" title="Instagram">📷</a>
+                <a href="#" class="social-btn" title="Twitter / X">🐦</a>
+                <a href="#" class="social-btn" title="TikTok">🎵</a>
+                <a href="#" class="social-btn" title="YouTube">▶️</a>
+            </div>
+        </div>
+        <div class="footer-col">
+            <h4>Tienda</h4>
+            <ul>
+                <li><a th:href="@{/categorias}">Categorías</a></li>
+                <li><a th:href="@{/categorias}">Novedades</a></li>
+                <li><a th:href="@{/categorias}">Ofertas</a></li>
+            </ul>
+        </div>
+        <div class="footer-col">
+            <h4>Empresa</h4>
+            <ul>
+                <li><a th:href="@{/sobre-nosotros}">Sobre nosotros</a></li>
+                <li><a th:href="@{/condiciones}">Condiciones de uso</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p class="footer-copy">© 2025 Jugador 12 · Todos los derechos reservados · Madrid, España</p>
+        <div class="footer-payments">
+            <span class="payment-badge">VISA</span>
+            <span class="payment-badge">Mastercard</span>
+            <span class="payment-badge">PayPal</span>
+            <span class="payment-badge">Bizum</span>
+        </div>
+    </div>
+</footer>
+</body>
+</html>

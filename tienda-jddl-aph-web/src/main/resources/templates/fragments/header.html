@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<nav class="navbar" th:fragment="header">
+    <a th:href="@{/}" class="nav-logo">Jugador<span>12</span></a>
+
+    <ul class="nav-links">
+        <li><a th:href="@{/}" class="active">Tienda</a></li>
+        <li><a th:href="@{/categorias}">Categorías</a></li>
+        <li><a th:href="@{/sobre-nosotros}">Sobre nosotros</a></li>
+        <li><a th:href="@{/condiciones}">Contacto</a></li>
+    </ul>
+
+    <div class="nav-actions">
+        <button class="nav-icon" title="Buscar">🔍</button>
+        <button class="nav-icon" title="Favoritos">♡</button>
+        <button class="nav-icon" title="Carrito" style="position:relative">
+            🛒 <span class="badge">3</span>
+        </button>
+        <a href="#" class="btn-nav">Entrar</a>
+    </div>
+</nav>
+</body>
+</html>
