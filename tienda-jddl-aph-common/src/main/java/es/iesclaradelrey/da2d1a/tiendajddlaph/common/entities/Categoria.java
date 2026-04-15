@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 
-public class Category {
+public class Categoria {
 
     private Long id;
     private String nombre;
