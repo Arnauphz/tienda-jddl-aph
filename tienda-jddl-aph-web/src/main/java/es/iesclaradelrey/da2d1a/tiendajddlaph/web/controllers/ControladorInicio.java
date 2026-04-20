@@ -1,22 +1,32 @@
 package es.iesclaradelrey.da2d1a.tiendajddlaph.web.controllers;
 
-import es.iesclaradelrey.da2d1a.tiendajddlaph.common.services.CategoriaServicio;
+import es.iesclaradelrey.da2d1a.tiendajddlaph.common.services.CategoriaService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+
+/**
+ * Controlador encargado de gestionar el acceso a la página principal del sitio.
+ */
 @Controller
-//la funcion de esta clase es atender peticiones de inicio, el objetivo es devolver una vista
 public class ControladorInicio {
 
-    private final CategoriaServicio categoriaServicio;
+    private final CategoriaService categoriaService;
 
-    public ControladorInicio(CategoriaServicio categoriaServicio) {
-        this.categoriaServicio = categoriaServicio;
+    /**
+     * Constructor con inyección del servicio necesario para mostrar datos en la Home.
+     */
+    public ControladorInicio(CategoriaService categoriaService) {
+        this.categoriaService = categoriaService;
     }
 
+    /**
+     * Atiende la petición raíz y carga las categorías para la vista de inicio.
+     * @return Nombre de la plantilla index.
+     */
     @GetMapping("/")
     public String mostrarVista(Model model){
-        model.addAttribute("categorias", categoriaServicio.findAll());
+        model.addAttribute("categorias", categoriaService.findAll());
         return "index";
     }
 

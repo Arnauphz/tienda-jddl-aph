@@ -424,10 +424,12 @@ section { padding: 6rem 4rem; }
     overflow: hidden;
     border: 1px solid var(--gris-bor);
     background: var(--gris-med);
-    padding: 2rem 1.5rem;
     cursor: pointer;
     transition: border-color var(--trans), transform var(--trans);
-    group: true;
+    display: flex;
+    flex-direction: column;
+    color: var(--blanco);
+    text-decoration: none;
 }
 
 .cat-card:hover {
@@ -436,33 +438,42 @@ section { padding: 6rem 4rem; }
 }
 
 .cat-card:hover .cat-arrow { opacity: 1; transform: translate(0, 0); }
-.cat-card:hover .cat-icon { transform: scale(1.1); }
+.cat-card:hover .cat-card-img { transform: scale(1.05); }
 
-.cat-icon {
-    font-size: 3.5rem;
-    margin-bottom: 1rem;
+.cat-card-img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
     display: block;
     transition: transform var(--trans);
-    line-height: 1;
+}
+
+.cat-card-body {
+    padding: 1.2rem 1.5rem 1.5rem;
 }
 
 .cat-name {
     font-family: 'Bebas Neue', sans-serif;
     font-size: 1.5rem;
     letter-spacing: .05em;
-    margin-bottom: .25rem;
+    margin-bottom: .4rem;
 }
 
 .cat-count {
-    font-size: .8rem;
+    font-size: .85rem;
     color: var(--texto-sec);
+    line-height: 1.5;
 }
 
 .cat-arrow {
     position: absolute;
-    top: 1.5rem; right: 1.5rem;
-    font-size: 1.1rem;
+    top: 1rem; right: 1rem;
+    font-size: 1rem;
     color: var(--verde);
+    background: rgba(0,0,0,.6);
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
     opacity: 0;
     transform: translate(-4px, 4px);
     transition: opacity var(--trans), transform var(--trans);

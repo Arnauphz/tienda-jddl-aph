@@ -76,8 +76,20 @@
         <a th:each="categoria : ${categorias}"
            th:href="@{/categorias/{id}(id=${categoria.id})}"
            class="cat-card">
-            <div class="cat-name" th:text="${categoria.nombre}">Nombre</div>
-            <span class="cat-arrow">↗</span>
+
+            <img th:if="${categoria.imagen != null}"
+                 src="/imagenes/categorias/imagenCat.jpg"
+                 class="cat-card-img" alt="Imagen categoría"/>
+            <img th:if="${categoria.imagen == null}"
+                 src="/imagenes/categorias/no-image.png"
+                 class="cat-card-img" alt="Sin imagen"/>
+
+            <div class="cat-card-body">
+                <div class="cat-name" th:text="${categoria.nombre}">Nombre</div>
+                <span class="cat-count" th:text="${categoria.descripcion}">Descripción</span>
+            </div>
+
+            <span class="cat-arrow">→</span>
         </a>
     </div>
 </section>

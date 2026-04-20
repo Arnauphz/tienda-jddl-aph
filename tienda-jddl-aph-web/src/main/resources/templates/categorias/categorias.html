@@ -7,7 +7,7 @@
 
 <div th:replace="~{fragments/header :: header}"></div>
 
-<section class="categories" id="categorias">
+<section class="categories" style="padding-top: 120px;">
     <div class="section-header">
         <div>
             <span class="label">Explora</span>
@@ -20,18 +20,19 @@
            th:href="@{/categorias/{id}(id=${categoria.id})}"
            class="cat-card">
 
-            <img th:if="${categoria.imagen != null and categoria.imagen != ''}"
-                 th:src="@{/imagenes/categorias/{imagen}(imagen=${categoria.imagen})}"
-                 th:alt="${categoria.nombre}"
-                 width="100"/>
+            <img th:if="${categoria.imagen != null}"
+                 src="/imagenes/categorias/imagenCat.jpg"
+                 class="cat-card-img" alt="Imagen categoría"/>
+            <img th:if="${categoria.imagen == null}"
+                 src="/imagenes/categorias/no-image.png"
+                 class="cat-card-img" alt="Sin imagen"/>
 
-            <img th:if="${categoria.imagen == null or categoria.imagen == ''}"
-                 th:src="@{/imagenes/categorias/no-image.png}"
-                 alt="Sin imagen"
-                 width="100"/>
+            <div class="cat-card-body">
+                <div class="cat-name" th:text="${categoria.nombre}">Nombre</div>
+                <span class="cat-count" th:text="${categoria.descripcion}">Descripción</span>
+            </div>
 
-            <div class="cat-name" th:text="${categoria.nombre}">Nombre</div>
-            <span class="cat-arrow">↗</span>
+            <span class="cat-arrow">→</span>
         </a>
     </div>
 </section>
