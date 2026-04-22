@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<!-- Fragment HEAD -->
+<head th:replace="~{fragments/head :: head(${categoria.nombre})}"></head>
+
+<body>
+
+<div th:replace="~{fragments/header :: header}"></div>
+
+<section class="hero">
+    <div class="hero-bg-lines"></div>
+    <div class="hero-left">
+        <div class="hero-eyebrow">
+            <div class="hero-eyebrow-line"></div>
+            <span class="label">Categoría</span>
+        </div>
+        <h1 class="hero-title" th:text="${categoria.nombre}">Nombre categoría</h1>
+        <p class="hero-desc" th:text="${categoria.descripcion}">Descripción de la categoría</p>
+        <div class="hero-ctas">
+            <a th:href="@{/categorias}" class="btn-outline">← Volver a categorías</a>
+        </div>
+    </div>
+    <div class="hero-right">
+        <div class="hero-image-wrap">
+            <img th:src="@{/imagenes/categorias/{imagen}(imagen=${categoria.imagen})}"
+                 th:alt="${categoria.nombre}"
+                 style="max-width:100%; border-radius:1rem;">
+
+            <img th:if="${categoria.imagen == null or categoria.imagen == ''}"
+                 th:src="@{/imagenes/categorias/no-image.png}"
+                 alt="Sin imagen"
+                 />
+        </div>
+    </div>
+</section>
+
+<div th:replace="~{fragments/footer :: footer}"></div>
+
+</body>
+</html>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<!-- Fragment HEAD -->
+<head th:replace="~{fragments/head :: head('Inicio')}"></head>
+
+<body>
+
+<!-- Fragment NAVBAR -->
+<div th:replace="~{fragments/header :: header}"></div>
+
+<!-- ─── HERO ─────────────────────────────────── -->
+<section class="hero">
+    <div class="hero-bg-lines"></div>
+    <div class="hero-left">
+        <div class="hero-eyebrow">
+            <div class="hero-eyebrow-line"></div>
+            <span class="label">Temporada 2025 / 26</span>
+        </div>
+        <h1 class="hero-title">
+            JUEGA<br>
+            <span class="outline">CON</span><br>
+            <span class="green">ESTILO</span>
+        </h1>
+        <p class="hero-desc">
+            Equipaciones oficiales, botas de última generación y todo el equipamiento
+            que necesitas para dominar el campo. Envío gratis en pedidos &gt; 60 €.
+        </p>
+        <div class="hero-ctas">
+            <a th:href="@{/categorias}" class="btn-primary">Ver colección →</a>
+            <a th:href="@{/categorias}" class="btn-outline">Categorías</a>
+        </div>
+        <div class="hero-stats">
+            <div><div class="stat-num">+5K</div><div class="stat-label">Productos</div></div>
+            <div><div class="stat-num">120+</div><div class="stat-label">Marcas</div></div>
+            <div><div class="stat-num">98%</div><div class="stat-label">Satisfacción</div></div>
+        </div>
+    </div>
+    <div class="hero-right">
+        <div class="hero-image-wrap">
+            <div class="hero-jersey-emoji">👕</div>
+            <div class="hero-tag tag-1"><span class="tag-dot"></span> Nueva temporada disponible</div>
+            <div class="hero-tag tag-2"><span class="tag-dot"></span> Envío en 24h · Gratis &gt; 60 €</div>
+        </div>
+    </div>
+</section>
+
+<!-- ─── TICKER ───────────────────────────────── -->
+<div class="ticker">
+    <div class="ticker-inner">
+        <span class="ticker-item">EQUIPACIONES OFICIALES <span>✦</span></span>
+        <span class="ticker-item">BOTAS PROFESIONALES <span>✦</span></span>
+        <span class="ticker-item">BALONES DE COMPETICIÓN <span>✦</span></span>
+        <span class="ticker-item">GUANTES DE PORTERO <span>✦</span></span>
+        <span class="ticker-item">ROPA DE ENTRENAMIENTO <span>✦</span></span>
+        <span class="ticker-item">DORSAL PERSONALIZADO <span>✦</span></span>
+        <span class="ticker-item">EQUIPACIONES OFICIALES <span>✦</span></span>
+        <span class="ticker-item">BOTAS PROFESIONALES <span>✦</span></span>
+        <span class="ticker-item">BALONES DE COMPETICIÓN <span>✦</span></span>
+        <span class="ticker-item">GUANTES DE PORTERO <span>✦</span></span>
+        <span class="ticker-item">ROPA DE ENTRENAMIENTO <span>✦</span></span>
+        <span class="ticker-item">DORSAL PERSONALIZADO <span>✦</span></span>
+    </div>
+</div>
+
+<!-- ─── CATEGORÍAS dinámicas ────────── -->
+<section class="categories" id="categorias">
+    <div class="section-header">
+        <div>
+            <span class="label">Explora</span>
+            <h2 class="section-title">CATEGORÍAS</h2>
+        </div>
+        <a th:href="@{/categorias}" class="section-link">Ver todo →</a>
+    </div>
+    <div class="cat-grid">
+        <a th:each="categoria : ${categorias}"
+           th:href="@{/categorias/{id}(id=${categoria.id})}"
+           class="cat-card">
+
+            <img th:if="${categoria.imagen != null}"
+                 src="/imagenes/categorias/imagenCat.jpg"
+                 class="cat-card-img" alt="Imagen categoría"/>
+            <img th:if="${categoria.imagen == null}"
+                 src="/imagenes/categorias/no-image.png"
+                 class="cat-card-img" alt="Sin imagen"/>
+
+            <div class="cat-card-body">
+                <div class="cat-name" th:text="${categoria.nombre}">Nombre</div>
+                <span class="cat-count" th:text="${categoria.descripcion}">Descripción</span>
+            </div>
+
+            <span class="cat-arrow">→</span>
+        </a>
+    </div>
+</section>
+
+<!-- Fragment FOOTER -->
+<div th:replace="~{fragments/footer :: footer}"></div>
+
+</body>
+</html>
