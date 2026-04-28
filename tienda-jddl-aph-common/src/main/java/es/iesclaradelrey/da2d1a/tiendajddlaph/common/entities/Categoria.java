@@ -3,6 +3,9 @@ package es.iesclaradelrey.da2d1a.tiendajddlaph.common.entities;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Data
 @Builder
 @NoArgsConstructor
@@ -23,4 +26,7 @@ public class Categoria {
 
     @Column(length = 500)
     private String imagen;
+
+    @ManyToMany(mappedBy = "categorias")
+    private List<Producto> productos = new ArrayList<>();
 }

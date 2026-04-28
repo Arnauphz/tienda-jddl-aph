@@ -23,21 +23,27 @@
                 <div class="product-gallery-card">
                     <img th:if="${producto.imagen != null}"
                          th:src="${producto.imagen}"
-                         alt="Imagen de"
+                         th:alt="${producto.nombre}"
                          class="product-gallery__image">
 
                     <img th:if="${producto.imagen == null}"
-                         src="/imagenes/productos/no-image.png"
-                         alt=""
+                         th:src="@{/imagenes/productos/no-image.png}"
+                         alt="Sin imagen"
                          class="product-gallery__image">
                 </div>
             </div>
 
             <div class="product-hero__content">
-                <div class="product-brand"
-                     th:if="${producto.marca != null and !#strings.isEmpty(producto.marca)}"
-                     th:text="${producto.marca}">
+                <a class="product-brand"
+                   th:if="${producto.marca != null and producto.marca.id != null}"
+                   th:href="@{/marcas/{id}(id=${producto.marca.id})}"
+                   th:text="${producto.marca.nombre}">
                     Marca
+                </a>
+
+                <div th:if="${producto.marca == null or producto.marca.id == null}"
+                     class="product-brand">
+                    Sin marca
                 </div>
 
                 <h1 class="product-title" th:text="${producto.nombre}">
@@ -53,7 +59,7 @@
                     <div class="product-highlight">
                         <span class="product-highlight__label">Marca</span>
                         <span class="product-highlight__value"
-                              th:text="${producto.marca != null ? producto.marca : 'Sin marca'}">
+                              th:text="${producto.marca != null and producto.marca.nombre != null ? producto.marca.nombre : 'Sin marca'}">
                             Marca
                         </span>
                     </div>
@@ -72,6 +78,9 @@
                         </span>
                     </div>
                 </div>
+
+
+
             </div>
 
             <aside class="product-buybox">
@@ -110,13 +119,29 @@
                     <div class="product-buybox__meta">
                         <div class="product-buybox__row">
                             <span>Marca</span>
-                            <strong th:text="${producto.marca != null ? producto.marca : 'Sin marca'}">Marca</strong>
+                            <strong th:if="${producto.marca != null and producto.marca.id != null}">
+                                <a th:href="@{/marcas/{id}(id=${producto.marca.id})}"
+                                   th:text="${producto.marca.nombre}">Marca</a>
+                            </strong>
+                            <strong th:if="${producto.marca == null or producto.marca.id == null}">Sin marca</strong>
                         </div>
 
                         <div class="product-buybox__row" th:if="${producto.codigo != null}">
                             <span>Código</span>
                             <strong th:text="${producto.codigo}">Código</strong>
                         </div>
+
+                        <div class="product-categories" th:if="${producto.categorias != null and !#lists.isEmpty(producto.categorias)}">
+                            <span class="product-categories__label">Categorías:</span>
+                            <a th:each="categoria : ${producto.categorias}"
+                               th:href="@{/categorias/{id}(id=${categoria.id})}"
+                               th:text="${categoria.nombre}"
+                               class="category-link">
+                                Categoría
+                            </a>
+                        </div>
+
+
                     </div>
 
                     <div class="product-buybox__actions">
@@ -146,9 +171,9 @@
                     </div>
 
                     <div class="product-specs__row"
-                         th:if="${producto.marca != null and !#strings.isEmpty(producto.marca)}">
+                         th:if="${producto.marca != null and producto.marca.nombre != null}">
                         <span class="product-specs__label">Marca</span>
-                        <span class="product-specs__value" th:text="${producto.marca}">Marca</span>
+                        <span class="product-specs__value" th:text="${producto.marca.nombre}">Marca</span>
                     </div>
 
                     <div class="product-specs__row" th:if="${producto.codigo != null}">
@@ -167,6 +192,19 @@
                     <div class="product-specs__row" th:if="${producto.descuento > 0}">
                         <span class="product-specs__label">Descuento</span>
                         <span class="product-specs__value" th:text="${producto.descuento} + '%'">0%</span>
+                    </div>
+
+                    <div class="product-specs__row"
+                         th:if="${producto.categorias != null and !#lists.isEmpty(producto.categorias)}">
+                        <span class="product-specs__label">Categorías</span>
+                        <span class="product-specs__value">
+                            <a th:each="categoria : ${producto.categorias}"
+                               th:href="@{/categorias/{id}(id=${categoria.id})}"
+                               th:text="${categoria.nombre}"
+                               class="category-link">
+                                Categoría
+                            </a>
+                        </span>
                     </div>
                 </div>
             </article>

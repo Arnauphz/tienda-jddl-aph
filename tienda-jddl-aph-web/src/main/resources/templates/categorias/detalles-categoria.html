@@ -8,31 +8,50 @@
 
 <div th:replace="~{fragments/header :: header}"></div>
 
-<section class="hero">
-    <div class="hero-bg-lines"></div>
-    <div class="hero-left">
-        <div class="hero-eyebrow">
-            <div class="hero-eyebrow-line"></div>
+<section class="products" style="padding: 4rem;">
+    <div class="section-header">
+        <div>
             <span class="label">Categoría</span>
+            <h2 class="section-title" th:text="${categoria.nombre}"></h2>
         </div>
-        <h1 class="hero-title" th:text="${categoria.nombre}">Nombre categoría</h1>
-        <p class="hero-desc" th:text="${categoria.descripcion}">Descripción de la categoría</p>
-        <div class="hero-ctas">
-            <a th:href="@{/categorias}" class="btn-outline">← Volver a categorías</a>
-        </div>
+        <span class="section-link">
+            <span th:text="${#lists.size(productos)}">0</span> artículos →
+        </span>
     </div>
-    <div class="hero-right">
-        <div class="hero-image-wrap">
-            <img th:src="@{/imagenes/categorias/{imagen}(imagen=${categoria.imagen})}"
-                 th:alt="${categoria.nombre}"
-                 style="max-width:100%; border-radius:1rem;">
 
-            <img th:if="${categoria.imagen == null or categoria.imagen == ''}"
-                 th:src="@{/imagenes/categorias/no-image.png}"
-                 alt="Sin imagen"
-                 />
-        </div>
+    <div class="product-grid" th:if="${not #lists.isEmpty(productos)}">
+        <a th:each="producto : ${productos}"
+           th:href="@{/productos/{id}/{slug}(id=${producto.id},slug=${T(es.iesclaradelrey.da2d1a.tiendajddlaph.common.utils.SlugUtils).toSlug(producto.nombre)})}"
+           class="product-card product-card-link">
+
+            <span th:if="${producto.descuento > 0}"
+                  th:text="${producto.descuento} + '%'"
+                  class="product-badge badge-sale"></span>
+
+            <div class="product-img">
+                <img th:if="${producto.imagen != null}" th:src="${producto.imagen}" th:alt="${producto.nombre}"/>
+                <img th:if="${producto.imagen == null}" src="/imagenes/productos/no-image.png" alt="Sin imagen" style="opacity:0.3;"/>
+            </div>
+
+            <div class="product-info">
+                <div th:text="${producto.marca.nombre}" class="product-brand"></div>
+                <div th:text="${producto.nombre}" class="product-name"></div>
+                <div class="product-price">
+                    <span th:if="${producto.descuento == 0}"
+                          th:text="${#numbers.formatDecimal(producto.precio,1,2)} + ' €'"
+                          class="price-now"></span>
+                    <th:block th:if="${producto.descuento > 0}">
+                        <span th:text="${#numbers.formatDecimal(producto.precio*(1-producto.descuento/100.0),1,2)} + ' €'" class="price-now"></span>
+                        <span th:text="${#numbers.formatDecimal(producto.precio,1,2)} + ' €'" class="price-old"></span>
+                    </th:block>
+                </div>
+            </div>
+        </a>
     </div>
+
+    <p th:if="${#lists.isEmpty(productos)}" style="color:var(--texto-sec);">
+        No hay productos en esta categoría.
+    </p>
 </section>
 
 <div th:replace="~{fragments/footer :: footer}"></div>

@@ -1,24 +1,22 @@
 package es.iesclaradelrey.da2d1a.tiendajddlaph.common.entities;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
+@Getter
+@Setter
 @Builder
 @Entity
-@Table(
-        name = "producto"
-)
+@Table(name = "producto")
 public class Producto {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,8 +28,18 @@ public class Producto {
     @Column(nullable = false, length = 200)
     private String nombre;
 
-    @Column(length = 50)
-    private String marca;
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "marca_id", nullable = false)
+    private Marca marca;
+
+    @Builder.Default
+    @ManyToMany
+    @JoinTable(
+            name = "producto_categoria",
+            joinColumns = @JoinColumn(name = "producto_id"),
+            inverseJoinColumns = @JoinColumn(name = "categoria_id")
+    )
+    private List<Categoria> categorias = new ArrayList<>();
 
     @Column(nullable = false, length = 4000)
     private String descripcion;

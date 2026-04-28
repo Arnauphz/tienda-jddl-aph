@@ -1,6 +1,5 @@
 /* ============================================
    Jugador 12 — Football Store Stylesheet
-   Aesthetic: Bold editorial + raw energy
    ============================================ */
 
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@400;600;700&family=Barlow:wght@400;500&display=swap');
@@ -98,6 +97,7 @@ body::before {
 .nav-links {
     display: flex;
     gap: 2rem;
+    align-items: center;
 }
 
 .nav-links a {
@@ -1152,6 +1152,12 @@ footer {
     font-weight: 700;
     letter-spacing: .12em;
     text-transform: uppercase;
+    transition: color var(--trans), opacity var(--trans);
+}
+
+.product-hero__content .product-brand:hover {
+    color: #00ff84;
+    opacity: .9;
 }
 
 .product-title {
@@ -1198,11 +1204,46 @@ footer {
     color: var(--blanco);
 }
 
+.product-categories {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .5rem;
+    margin-top: 1.5rem;
+    align-items: center;
+}
+
+.product-categories__label {
+    color: var(--texto-sec);
+    font-size: .85rem;
+    text-transform: uppercase;
+    letter-spacing: .08em;
+    font-weight: 600;
+}
+
+.category-link {
+    display: inline-flex;
+    align-items: center;
+    padding: .35rem .7rem;
+    border: 1px solid var(--gris-bor);
+    border-radius: 999px;
+    background: var(--gris-med);
+    color: var(--blanco);
+    font-size: .85rem;
+    transition: border-color var(--trans), color var(--trans), transform var(--trans), background var(--trans);
+}
+
+.category-link:hover {
+    border-color: var(--verde);
+    color: var(--verde);
+    transform: translateY(-1px);
+    background: rgba(0, 210, 106, .08);
+}
+
 .product-buybox__card {
     position: sticky;
     top: 120px;
-    background: black;
-    color: var(--negro);
+    background: var(--gris-osc);
+    color: var(--blanco);
     border: 1px solid rgba(245,245,240,.08);
     border-radius: 12px;
     padding: 1.5rem;
@@ -1282,8 +1323,19 @@ footer {
 }
 
 .product-buybox__row strong {
-    color: var(--negro);
+    color: var(--blanco);
     text-align: right;
+}
+
+.product-buybox__row a {
+    color: var(--verde);
+    font-weight: 700;
+    transition: color var(--trans), opacity var(--trans);
+}
+
+.product-buybox__row a:hover {
+    color: #00ff84;
+    opacity: .9;
 }
 
 .product-buybox__actions {
