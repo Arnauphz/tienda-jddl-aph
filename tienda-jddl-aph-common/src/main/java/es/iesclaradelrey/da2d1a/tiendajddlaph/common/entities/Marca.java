@@ -1,19 +1,23 @@
 package es.iesclaradelrey.da2d1a.tiendajddlaph.common.entities;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Data
+@Getter
+@Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "categoria")
-public class Categoria {
-
+@Table(name = "marca")
+public class Marca {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -21,12 +25,9 @@ public class Categoria {
     @Column(nullable = false, unique = true, length = 100)
     private String nombre;
 
-    @Column(length = 2000)
-    private String descripcion;
-
-    @Column(length = 500)
-    private String imagen;
-
-    @ManyToMany(mappedBy = "categorias")
+    @Builder.Default
+    @OneToMany(mappedBy = "marca")
     private List<Producto> productos = new ArrayList<>();
+
+
 }

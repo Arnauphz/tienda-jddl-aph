@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{admin/fragments/head :: head('Categorías')}"></head>
+<body>
+
+<div th:replace="~{admin/fragments/header :: header}"></div>
+
+<div class="container-fluid">
+    <div class="row">
+        <div th:replace="~{admin/fragments/sidebar :: sidebar}"></div>
+
+        <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 py-4">
+
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h1 class="h2 mb-0"><i class="bi bi-grid me-2 text-warning"></i>Categorías</h1>
+                <a href="/admin/categorias/new" class="btn btn-primary">
+                    <i class="bi bi-plus-lg me-1"></i>Nueva categoría
+                </a>
+            </div>
+
+            <div class="table-responsive rounded-3" style="border:1px solid #2a2a2a;">
+                <table class="table table-dark table-hover mb-0" aria-label="Listado de categorías">
+                    <thead class="table-dark border-bottom border-secondary">
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Descripción</th>
+                        <th scope="col">Productos</th>
+                        <th scope="col"><span class="visually-hidden">Acciones</span></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="categoria : ${categorias}">
+                        <td th:text="${categoria.id}"></td>
+                        <td th:text="${categoria.nombre}"></td>
+                        <td th:text="${#strings.abbreviate(categoria.descripcion, 60)}"></td>
+                        <td th:text="${#lists.size(categoria.productos)}"></td>
+                        <td th:replace="~{admin/fragments/btn-acciones :: acciones('categorias', ${categoria.id})}"></td>
+                    </tr>
+                    <tr th:if="${#lists.isEmpty(categorias)}">
+                        <td colspan="5" class="text-center text-muted py-4">No hay categorías registradas.</td>
+                    </tr>
+                    </tbody>
+                    <tfoot class="border-top border-secondary">
+                    <tr>
+                        <td colspan="5" class="text-muted small py-2">
+                            Total: <span th:text="${#lists.size(categorias)}">0</span> categorías
+                        </td>
+                    </tr>
+                    </tfoot>
+                </table>
+            </div>
+
+            <div class="mt-3">
+                <a href="/admin/categorias/new" class="btn btn-outline-primary btn-sm">
+                    <i class="bi bi-plus-lg me-1"></i>Nueva categoría
+                </a>
+            </div>
+
+        </main>
+    </div>
+</div>
+
+</body>
+</html>

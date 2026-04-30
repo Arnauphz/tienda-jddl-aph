@@ -23,5 +23,5 @@ public interface CategoriaService {
      * @param id Identificador de la categoría.
      * @return {@link Optional} con el resultado.
      */
-    Optional<Categoria> findById(Long id);
+    Categoria findById(Long id);
 }

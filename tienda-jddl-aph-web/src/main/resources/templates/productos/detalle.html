@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragments/head :: head(${producto.nombre})}"></head>
+
+<body>
+
+<div th:replace="~{fragments/header :: header}"></div>
+
+<main class="product-page" style="padding-top: 120px;">
+    <div class="product-page__container">
+
+        <nav class="product-breadcrumb">
+            <a th:href="@{/}">Inicio</a>
+            <span>/</span>
+            <a th:href="@{/productos}">Productos</a>
+            <span>/</span>
+            <span th:text="${producto.nombre}">Producto</span>
+        </nav>
+
+        <section class="product-hero">
+            <div class="product-hero__gallery">
+                <div class="product-gallery-card">
+                    <img th:if="${producto.imagen != null}"
+                         th:src="${producto.imagen}"
+                         th:alt="${producto.nombre}"
+                         class="product-gallery__image">
+
+                    <img th:if="${producto.imagen == null}"
+                         th:src="@{/imagenes/productos/no-image.png}"
+                         alt="Sin imagen"
+                         class="product-gallery__image">
+                </div>
+            </div>
+
+            <div class="product-hero__content">
+                <a class="product-brand"
+                   th:if="${producto.marca != null and producto.marca.id != null}"
+                   th:href="@{/marcas/{id}(id=${producto.marca.id})}"
+                   th:text="${producto.marca.nombre}">
+                    Marca
+                </a>
+
+                <div th:if="${producto.marca == null or producto.marca.id == null}"
+                     class="product-brand">
+                    Sin marca
+                </div>
+
+                <h1 class="product-title" th:text="${producto.nombre}">
+                    Nombre del producto
+                </h1>
+
+                <p class="product-short-description"
+                   th:text="${#strings.abbreviate(producto.descripcion, 220)}">
+                    Descripción breve
+                </p>
+
+                <div class="product-highlights">
+                    <div class="product-highlight">
+                        <span class="product-highlight__label">Marca</span>
+                        <span class="product-highlight__value"
+                              th:text="${producto.marca != null and producto.marca.nombre != null ? producto.marca.nombre : 'Sin marca'}">
+                            Marca
+                        </span>
+                    </div>
+
+                    <div class="product-highlight" th:if="${producto.codigo != null}">
+                        <span class="product-highlight__label">Código</span>
+                        <span class="product-highlight__value" th:text="${producto.codigo}">
+                            Código
+                        </span>
+                    </div>
+
+                    <div class="product-highlight" th:if="${producto.descuento > 0}">
+                        <span class="product-highlight__label">Descuento</span>
+                        <span class="product-highlight__value" th:text="${producto.descuento} + '%'">
+                            0%
+                        </span>
+                    </div>
+                </div>
+
+
+
+            </div>
+
+            <aside class="product-buybox">
+                <div class="product-buybox__card">
+
+                    <div class="product-price-block" th:if="${producto.descuento == 0}">
+                        <div class="product-price-current"
+                             th:text="${#numbers.formatDecimal(producto.precio,1,2)} + ' €'">
+                            0,00 €
+                        </div>
+                    </div>
+
+                    <div class="product-price-block" th:if="${producto.descuento > 0}">
+                        <div class="product-discount-line">
+                            <span class="product-discount-badge"
+                                  th:text="'-' + ${producto.descuento} + '%'">
+                                -20%
+                            </span>
+                            <span class="product-price-old"
+                                  th:text="${#numbers.formatDecimal(producto.precio,1,2)} + ' €'">
+                                0,00 €
+                            </span>
+                        </div>
+
+                        <div class="product-price-current"
+                             th:text="${#numbers.formatDecimal(producto.precio * (1 - producto.descuento / 100.0),1,2)} + ' €'">
+                            0,00 €
+                        </div>
+                    </div>
+
+                    <div class="product-status">
+                        <span class="product-status__label">Disponibilidad</span>
+                        <span class="product-status__value">Disponible</span>
+                    </div>
+
+                    <div class="product-buybox__meta">
+                        <div class="product-buybox__row">
+                            <span>Marca</span>
+                            <strong th:if="${producto.marca != null and producto.marca.id != null}">
+                                <a th:href="@{/marcas/{id}(id=${producto.marca.id})}"
+                                   th:text="${producto.marca.nombre}">Marca</a>
+                            </strong>
+                            <strong th:if="${producto.marca == null or producto.marca.id == null}">Sin marca</strong>
+                        </div>
+
+                        <div class="product-buybox__row" th:if="${producto.codigo != null}">
+                            <span>Código</span>
+                            <strong th:text="${producto.codigo}">Código</strong>
+                        </div>
+
+                        <div class="product-categories" th:if="${producto.categorias != null and !#lists.isEmpty(producto.categorias)}">
+                            <span class="product-categories__label">Categorías:</span>
+                            <a th:each="categoria : ${producto.categorias}"
+                               th:href="@{/categorias/{id}(id=${categoria.id})}"
+                               th:text="${categoria.nombre}"
+                               class="category-link">
+                                Categoría
+                            </a>
+                        </div>
+
+
+                    </div>
+
+                    <div class="product-buybox__actions">
+                        <a href="#" class="btn btn-primary">Añadir al carrito</a>
+                        <a th:href="@{/productos}" class="btn btn-secondary">Volver al listado</a>
+                    </div>
+                </div>
+            </aside>
+        </section>
+
+        <section class="product-sections">
+            <article class="product-section-card">
+                <h2 class="section-title">Descripción</h2>
+                <p class="product-description-full"
+                   th:text="${producto.descripcion}">
+                    Descripción completa del producto
+                </p>
+            </article>
+
+            <article class="product-section-card">
+                <h2 class="section-title">Información del producto</h2>
+
+                <div class="product-specs">
+                    <div class="product-specs__row">
+                        <span class="product-specs__label">Nombre</span>
+                        <span class="product-specs__value" th:text="${producto.nombre}">Nombre</span>
+                    </div>
+
+                    <div class="product-specs__row"
+                         th:if="${producto.marca != null and producto.marca.nombre != null}">
+                        <span class="product-specs__label">Marca</span>
+                        <span class="product-specs__value" th:text="${producto.marca.nombre}">Marca</span>
+                    </div>
+
+                    <div class="product-specs__row" th:if="${producto.codigo != null}">
+                        <span class="product-specs__label">Código</span>
+                        <span class="product-specs__value" th:text="${producto.codigo}">Código</span>
+                    </div>
+
+                    <div class="product-specs__row">
+                        <span class="product-specs__label">Precio</span>
+                        <span class="product-specs__value"
+                              th:text="${#numbers.formatDecimal(producto.precio,1,2)} + ' €'">
+                            0,00 €
+                        </span>
+                    </div>
+
+                    <div class="product-specs__row" th:if="${producto.descuento > 0}">
+                        <span class="product-specs__label">Descuento</span>
+                        <span class="product-specs__value" th:text="${producto.descuento} + '%'">0%</span>
+                    </div>
+
+                    <div class="product-specs__row"
+                         th:if="${producto.categorias != null and !#lists.isEmpty(producto.categorias)}">
+                        <span class="product-specs__label">Categorías</span>
+                        <span class="product-specs__value">
+                            <a th:each="categoria : ${producto.categorias}"
+                               th:href="@{/categorias/{id}(id=${categoria.id})}"
+                               th:text="${categoria.nombre}"
+                               class="category-link">
+                                Categoría
+                            </a>
+                        </span>
+                    </div>
+                </div>
+            </article>
+        </section>
+
+    </div>
+</main>
+
+<div th:replace="~{fragments/footer :: footer}"></div>
+
+</body>
+</html>
