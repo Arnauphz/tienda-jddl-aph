@@ -5,6 +5,8 @@ import java.util.Optional;
 
 public interface MarcaService {
     void guardar(Marca entity);
+    void deleteById(Long id);
     Marca findById(Long id);
     Iterable<Marca> findAll();
+
 }

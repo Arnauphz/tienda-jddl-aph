@@ -27,4 +27,9 @@ public class MarcaServiceImpl implements MarcaService {
     public Marca findById(Long id) {
         return marcaRepository.findById(id).orElse(null);
     }
+
+    @Override
+    public void deleteById(Long id) {
+        marcaRepository.deleteById(id);
+    }
 }
