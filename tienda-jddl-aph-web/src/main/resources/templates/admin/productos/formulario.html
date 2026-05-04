@@ -27,42 +27,42 @@
                         <div class="row g-3">
 
                             <div class="col-md-8">
-                                <label for="nombre" class="form-label">Nombre <span class="text-danger">*</span></label>
+                                <label for="nombre" class="form-label text-white">Nombre <span class="text-danger">*</span></label>
                                 <input type="text" id="nombre" th:field="*{nombre}"
                                        class="form-control bg-dark text-white border-secondary"
                                        placeholder="Nombre del producto">
                             </div>
 
                             <div class="col-md-4">
-                                <label for="codigo" class="form-label">Código EAN <span class="text-danger">*</span></label>
+                                <label for="codigo" class="form-label text-white">Código EAN <span class="text-danger">*</span></label>
                                 <input type="text" id="codigo" th:field="*{codigo}"
                                        class="form-control bg-dark text-white border-secondary"
                                        placeholder="0000000000000">
                             </div>
 
                             <div class="col-12">
-                                <label for="descripcion" class="form-label">Descripción <span class="text-danger">*</span></label>
+                                <label for="descripcion" class="form-label text-white">Descripción <span class="text-danger">*</span></label>
                                 <textarea id="descripcion" th:field="*{descripcion}" rows="3"
                                           class="form-control bg-dark text-white border-secondary"
                                           placeholder="Descripción del producto"></textarea>
                             </div>
 
                             <div class="col-md-4">
-                                <label for="precio" class="form-label">Precio (€) <span class="text-danger">*</span></label>
+                                <label for="precio" class="form-label text-white">Precio (€) <span class="text-danger">*</span></label>
                                 <input type="number" id="precio" th:field="*{precio}" step="0.01" min="0"
                                        class="form-control bg-dark text-white border-secondary"
                                        placeholder="0.00">
                             </div>
 
                             <div class="col-md-4">
-                                <label for="descuento" class="form-label">Descuento (%)</label>
+                                <label for="descuento" class="form-label text-white">Descuento (%)</label>
                                 <input type="number" id="descuento" th:field="*{descuento}" min="0" max="100"
                                        class="form-control bg-dark text-white border-secondary"
                                        placeholder="0">
                             </div>
 
                             <div class="col-md-4">
-                                <label for="imagen" class="form-label">Imagen</label>
+                                <label for="imagen" class="form-label text-white">Imagen</label>
                                 <input type="text" id="imagen" th:field="*{imagen}"
                                        class="form-control bg-dark text-white border-secondary"
                                        placeholder="ej: zapatilla.jpg">
@@ -70,7 +70,7 @@
 
                             <!-- MARCA: sin th:field, solo name="marcaId" -->
                             <div class="col-md-6">
-                                <label for="marcaId" class="form-label">Marca <span class="text-danger">*</span></label>
+                                <label for="marcaId" class="form-label text-white">Marca <span class="text-danger">*</span></label>
                                 <select id="marcaId" name="marcaId"
                                         class="form-select bg-dark text-white border-secondary">
                                     <option value="">-- Selecciona una marca --</option>
@@ -84,7 +84,7 @@
 
                             <!-- CATEGORÍAS: sin th:field, solo name="categoriasIds" -->
                             <div class="col-md-6">
-                                <label class="form-label">Categorías</label>
+                                <label class="form-label text-white">Categorías</label>
                                 <div class="p-2 rounded border border-secondary" style="max-height:160px; overflow-y:auto;">
                                     <div th:each="cat : ${categorias}" class="form-check">
                                         <input class="form-check-input" type="checkbox"

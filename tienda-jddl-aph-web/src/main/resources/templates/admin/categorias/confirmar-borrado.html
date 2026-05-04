@@ -22,7 +22,7 @@
 
             <div class="card border-danger" style="max-width:500px;">
                 <div class="card-body p-4">
-                    <p class="fs-5 mb-1">¿Seguro que desea borrar la categoría?</p>
+                    <p class="fs-5 mb-1 text-white">¿Seguro que desea borrar la categoría?</p>
                     <p class="fw-bold text-white fs-4 mb-4" th:text="${categoria.nombre}">Nombre</p>
 
                     <form th:action="@{/admin/categorias/{id}/delete(id=${categoria.id})}" method="post">

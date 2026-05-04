@@ -24,7 +24,7 @@
                     <form th:action="@{/admin/marcas/new}" th:object="${marca}" method="post">
 
                         <div class="mb-3">
-                            <label for="nombre" class="form-label">Nombre <span class="text-danger">*</span></label>
+                            <label for="nombre" class="form-label text-white">Nombre <span class="text-danger">*</span></label>
                             <input type="text" id="nombre" th:field="*{nombre}"
                                    class="form-control bg-dark text-white border-secondary"
                                    placeholder="Nombre de la marca">
