@@ -24,4 +24,5 @@ public interface CategoriaService {
      * @return {@link Optional} con el resultado.
      */
     Categoria findById(Long id);
+    void deleteById(Long id);
 }

@@ -11,24 +11,35 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.Comparator;
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 @RequestMapping("/marcas")
 public class MarcaController {
 
-    private MarcaService marcaService;
+    private final MarcaService marcaService;
 
     public MarcaController(MarcaService marcaService) {
         this.marcaService = marcaService;
     }
 
+    /**
+     * Listado público de marcas.
+     * URL: GET /marcas
+     */
     @GetMapping
     public String mostrarMarcas(Model model) {
         model.addAttribute("marcas", marcaService.findAll());
-        return "marcas/marcas";
+        // Si en el futuro creas un templates/marcas/listado.html público,
+        // cámbialo aquí. De momento reutilizamos detalle.html no tiene sentido,
+        // así que apuntamos también a detalle por ahora; si la URL /marcas
+        // (sin id) no la usas en navegación, esto sobra.
+        return "marcas/detalle";
     }
 
+    /**
+     * Detalle público de una marca, con sus productos ordenados alfabéticamente.
+     * URL: GET /marcas/{id}
+     */
     @GetMapping("/{id}")
     public String detalleMarca(@PathVariable Long id, Model model) {
         Marca marca = marcaService.findById(id); // lanza excepción si no existe
@@ -44,6 +55,6 @@ public class MarcaController {
         model.addAttribute("marca", marca);
         model.addAttribute("productos", productosOrdenados);
 
-        return "marcas/detalle-marca";
+        return "marcas/detalle";
     }
 }

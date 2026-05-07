@@ -23,6 +23,8 @@
                 <div class="card-body p-4">
                     <form th:action="@{/admin/marcas/new}" th:object="${marca}" method="post">
 
+                        <input type="hidden" th:field="*{id}">
+
                         <div class="mb-3">
                             <label for="nombre" class="form-label">Nombre <span class="text-danger">*</span></label>
                             <input type="text" id="nombre" th:field="*{nombre}"

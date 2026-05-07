@@ -5,6 +5,7 @@ import java.util.Optional;
 
 public interface ProductoService {
     void guardar(Producto entity);
+    void deleteById(Long id);
     Producto findById(Long id);
     Iterable<Producto> findAll();
 }

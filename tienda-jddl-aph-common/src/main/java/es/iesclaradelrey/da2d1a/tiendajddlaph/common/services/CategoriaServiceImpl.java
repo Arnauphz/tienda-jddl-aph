@@ -44,4 +44,9 @@ public class CategoriaServiceImpl implements CategoriaService {
     public Categoria findById(Long id) {
         return categoriaRepository.findById(id).orElse(null);
     }
+
+    @Override
+    public void deleteById(Long id) {
+        categoriaRepository.deleteById(id);
+    }
 }

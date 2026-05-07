@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @SpringBootApplication(
         scanBasePackages = {
                 "es.iesclaradelrey.da2d1a.tiendajddlaph.common",
+                "es.iesclaradelrey.da2d1a.tiendajddlaph.security",
                 "es.iesclaradelrey.da2d1a.tiendajddlaph.web"
         }
 )

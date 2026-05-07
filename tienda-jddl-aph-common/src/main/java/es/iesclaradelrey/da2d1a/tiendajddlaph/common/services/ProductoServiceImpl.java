@@ -30,4 +30,9 @@ public class ProductoServiceImpl implements ProductoService {
     public Iterable<Producto> findAll() {
         return productoRepository.findAll();
     }
+
+    @Override
+    public void deleteById(Long id) {
+        productoRepository.deleteById(id);
+    }
 }

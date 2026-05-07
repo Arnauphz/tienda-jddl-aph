@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <body>
 <nav class="navbar" th:fragment="header">
     <a th:href="@{/}" class="nav-logo">Jugador<span>12</span></a>
@@ -10,8 +11,66 @@
         <li><a th:href="@{/sobre-nosotros.html}">Sobre nosotros</a></li>
     </ul>
 
+    <!--
+        Zona de acciones de la cabecera. Su contenido depende de si hay
+        usuario autenticado o no:
+        - Anónimo: enlaces a /login y /register.
+        - Autenticado: nombre del usuario + botón de logout (POST).
+
+        Usamos los atributos sec:authorize del módulo "thymeleaf-extras-springsecurity6"
+        para evaluar el estado de autenticación de forma declarativa.
+    -->
     <div class="nav-actions">
-        <a th:href="@{/admin}" class="btn-nav">Admin</a>
+
+        <!-- USUARIO ANÓNIMO -->
+        <div sec:authorize="isAnonymous()" class="nav-anon">
+            <a th:href="@{/login}" class="btn-nav">Iniciar sesión</a>
+            <a th:href="@{/register}" class="btn-nav">Registrarse</a>
+        </div>
+
+        <!-- USUARIO AUTENTICADO -->
+        <div sec:authorize="isAuthenticated()" class="nav-auth">
+
+            <!--
+                Mostramos el nombre del usuario logueado.
+                authentication.principal es nuestro MiUsuarioDetails (porque así lo
+                devuelve MiUsuarioDetailsService.loadUserByUsername). Como
+                MiUsuarioDetails expone getUsuario() (Lombok @Getter), podemos
+                navegar hasta principal.usuario.nombre, principal.usuario.apellidos, etc.
+            -->
+            <span class="nav-user">
+                <i class="bi bi-person-circle"></i>
+                <span th:text="${#authentication.principal.usuario.nombre}
+                               + ' ' +
+                               ${#authentication.principal.usuario.apellidos}">
+                    Nombre Apellidos
+                </span>
+            </span>
+
+            <!-- Enlaces de área autenticada.
+                 - "Mi perfil": para todo usuario autenticado.
+                 - "Admin": solo si el usuario tiene rol ADMIN. El atributo
+                   sec:authorize="hasRole('ADMIN')" hace que el <a> ni
+                   siquiera se renderice para usuarios sin ese rol. -->
+            <a th:href="@{/users/profile}" class="btn-nav">Mi perfil</a>
+            <a sec:authorize="hasRole('ADMIN')" th:href="@{/admin}" class="btn-nav">Admin</a>
+
+            <!--
+                Formulario de logout.
+                - method="post": obligatorio por seguridad / protección CSRF.
+                - th:action: hace que Thymeleaf inserte automáticamente el
+                  token CSRF como input hidden.
+                - El botón usa estilo de enlace para integrarse en la
+                  barra; es un <button> de verdad, así que es accesible
+                  para tecnología asistencial sin necesidad de role/tabindex.
+            -->
+            <form th:action="@{/logout}" method="post" class="nav-logout-form">
+                <button type="submit" class="btn-nav btn-logout">
+                    Cerrar sesión
+                </button>
+            </form>
+
+        </div>
     </div>
 </nav>
 </body>

@@ -6,8 +6,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Optional;
-
 @Controller
 @RequestMapping("/admin/marcas")
 public class AdminMarcaController {
@@ -24,19 +22,20 @@ public class AdminMarcaController {
         return "admin/marcas/listado";
     }
 
-    @GetMapping("/")
-    public String listado2() {
-        return "redirect:/admin/marcas";
-    }
-
     @GetMapping("/new")
-    public String formularioMarca(Model model) {
+    public String formularioNuevo(Model model) {
         model.addAttribute("marca", new Marca());
         return "admin/marcas/formulario";
     }
 
+    @GetMapping("/{id}/edit")
+    public String formularioEditar(@PathVariable Long id, Model model) {
+        model.addAttribute("marca", marcaService.findById(id));
+        return "admin/marcas/formulario";
+    }
+
     @PostMapping("/new")
-    public String guardarMarca(@ModelAttribute Marca marca, Model model) {
+    public String guardar(@ModelAttribute Marca marca, Model model) {
         try {
             marcaService.guardar(marca);
             return "redirect:/admin/marcas";
@@ -47,10 +46,21 @@ public class AdminMarcaController {
         }
     }
 
-    @GetMapping("/{id}/edit")
-    public String editForm(@PathVariable Long id, Model model) {
-        Marca marca = marcaService.findById(id);
-        model.addAttribute("marca", marca);
-        return "admin/marcas/formulario";
+    @GetMapping("/{id}/delete")
+    public String confirmarBorrado(@PathVariable Long id, Model model) {
+        model.addAttribute("marca", marcaService.findById(id));
+        return "admin/marcas/confirmar-borrado";
+    }
+
+    @PostMapping("/{id}/delete")
+    public String borrar(@PathVariable Long id, Model model) {
+        try {
+            marcaService.deleteById(id);
+            return "redirect:/admin/marcas";
+        } catch (Exception e) {
+            model.addAttribute("marca", marcaService.findById(id));
+            model.addAttribute("error", e.getMessage());
+            return "admin/marcas/confirmar-borrado";
+        }
     }
 }

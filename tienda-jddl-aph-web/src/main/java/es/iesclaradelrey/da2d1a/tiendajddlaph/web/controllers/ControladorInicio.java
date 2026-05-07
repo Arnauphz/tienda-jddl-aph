@@ -30,4 +30,21 @@ public class ControladorInicio {
         return "index";
     }
 
+    /**
+     * Sirve el formulario de login personalizado.
+     *
+     * Spring Security está configurado con .loginPage("/login") en
+     * ConfiguracionSeguridad, lo cual hace que la generación automática
+     * del formulario se desactive. A partir de ese momento, somos
+     * nosotros los responsables de servir esta URL con una vista.
+     *
+     * El POST de las credenciales sigue yendo a /login, pero ese lo
+     * intercepta directamente el filtro de Spring Security antes de
+     * llegar al DispatcherServlet, así que aquí no hay que mapearlo.
+     */
+    @GetMapping("/login")
+    public String mostrarLogin() {
+        return "login";
+    }
+
 }

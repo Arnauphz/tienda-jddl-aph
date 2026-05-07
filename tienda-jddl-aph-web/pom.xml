@@ -73,6 +73,17 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-h2console</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>org.thymeleaf.extras</groupId>
+            <artifactId>thymeleaf-extras-springsecurity6</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>es.iesclaradelrey.da2d1a.tienda-jddl-aph</groupId>
+            <artifactId>tienda-jddl-aph-security</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
     </dependencies>
 
     <build>

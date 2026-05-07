@@ -26,5 +26,6 @@
     <modules>
         <module>tienda-jddl-aph-common</module>
         <module>tienda-jddl-aph-web</module>
+        <module>tienda-jddl-aph-security</module>
     </modules>
 </project>
