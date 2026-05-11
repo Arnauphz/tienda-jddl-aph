@@ -63,7 +63,7 @@
     </div>
 </div>
 
-<!-- ─── CATEGORÍAS (preview estática) ────────── -->
+<!-- ─── CATEGORÍAS dinámicas ────────── -->
 <section class="categories" id="categorias">
     <div class="section-header">
         <div>
@@ -73,10 +73,24 @@
         <a th:href="@{/categorias}" class="section-link">Ver todo →</a>
     </div>
     <div class="cat-grid">
-        <div class="cat-card"><span class="cat-icon">👕</span><div class="cat-name">Camisetas</div><span class="cat-arrow">↗</span></div>
-        <div class="cat-card"><span class="cat-icon">👟</span><div class="cat-name">Botas</div><span class="cat-arrow">↗</span></div>
-        <div class="cat-card"><span class="cat-icon">⚽</span><div class="cat-name">Balones</div><span class="cat-arrow">↗</span></div>
-        <div class="cat-card"><span class="cat-icon">🧤</span><div class="cat-name">Accesorios</div><span class="cat-arrow">↗</span></div>
+        <a th:each="categoria : ${categorias}"
+           th:href="@{/categorias/{id}(id=${categoria.id})}"
+           class="cat-card">
+
+            <img th:if="${categoria.imagen != null}"
+                 src="/imagenes/categorias/imagenCat.jpg"
+                 class="cat-card-img" alt="Imagen categoría"/>
+            <img th:if="${categoria.imagen == null}"
+                 src="/imagenes/categorias/no-image.png"
+                 class="cat-card-img" alt="Sin imagen"/>
+
+            <div class="cat-card-body">
+                <div class="cat-name" th:text="${categoria.nombre}">Nombre</div>
+                <span class="cat-count" th:text="${categoria.descripcion}">Descripción</span>
+            </div>
+
+            <span class="cat-arrow">→</span>
+        </a>
     </div>
 </section>
 

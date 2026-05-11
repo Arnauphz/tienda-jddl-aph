@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragments/head :: head('Productos')}"></head>
+
+<body>
+
+<div th:replace="~{fragments/header :: header}"></div>
+
+<section class="products" style="padding-top: 120px;">
+    <div class="section-header">
+        <div>
+            <span class="label">Explora</span>
+            <h2 class="section-title">PRODUCTOS</h2>
+        </div>
+        <span class="section-link">
+            <span th:text="${#lists.size(productos)}">0</span> artículos →
+        </span>
+    </div>
+
+    <div class="product-grid">
+        <a th:each="producto : ${productos}"
+           th:href="@{/productos/{id}/{slug}(id=${producto.id},slug=${T(es.iesclaradelrey.da2d1a.tiendajddlaph.common.utils.SlugUtils).toSlug(producto.nombre)})}"
+           class="product-card product-card-link">
+
+            <!-- Badge de descuento -->
+            <span th:if="${producto.descuento > 0}"
+                  th:text="${producto.descuento} + '%'"
+                  class="product-badge badge-sale">
+            </span>
+
+            <!-- Imagen -->
+            <div class="product-img">
+                <img th:if="${producto.imagen != null}"
+                     th:src="${producto.imagen}"
+                     th:alt="${producto.nombre}"
+                     style="width:100%; height:200px; object-fit:cover;"/>
+
+                <img th:if="${producto.imagen == null}"
+                     src="/imagenes/productos/no-image.png"
+                     alt="Sin imagen"
+                     style="width:100%; height:200px; object-fit:cover; opacity:0.3;"/>
+            </div>
+
+            <!-- Info -->
+            <div class="product-info">
+
+                <!-- Marca -->
+                <div th:if="${producto.marca != null}"
+                     th:text="${producto.marca.nombre}"
+                     class="product-brand">
+                </div>
+
+                <!-- Nombre -->
+                <div th:text="${producto.nombre}" class="product-name"></div>
+
+                <!-- Descripción primeros 200 chars -->
+                <p th:text="${#strings.abbreviate(producto.descripcion, 200)}"
+                   style="font-size:.82rem; color:var(--texto-sec); line-height:1.5; margin-bottom:.75rem;">
+                </p>
+
+                <!-- Precio -->
+                <div class="product-price">
+                    <!-- Sin descuento -->
+                    <span th:if="${producto.descuento == 0}"
+                          th:text="${#numbers.formatDecimal(producto.precio, 1, 2)} + ' €'"
+                          class="price-now">
+                    </span>
+
+                    <!-- Con descuento -->
+                    <th:block th:if="${producto.descuento > 0}">
+                        <span th:text="${#numbers.formatDecimal(producto.precio * (1 - producto.descuento / 100.0), 1, 2)} + ' €'"
+                              class="price-now">
+                        </span>
+                        <span th:text="${#numbers.formatDecimal(producto.precio, 1, 2)} + ' €'"
+                              class="price-old">
+                        </span>
+                    </th:block>
+                </div>
+
+            </div>
+        </a>
+    </div>
+</section>
+
+<div th:replace="~{fragments/footer :: footer}"></div>
+
+</body>
+</html>

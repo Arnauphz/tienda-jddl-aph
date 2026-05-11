@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar sesión - Jugador12</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+          rel="stylesheet">
+
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body class="bg-dark text-white">
+
+<div th:replace="~{fragments/header :: header}"></div>
+
+<main class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6 col-lg-5">
+
+            <div class="card border-secondary bg-dark">
+                <div class="card-body p-4 p-md-5">
+
+                    <h1 class="h3 mb-4 text-center text-white">
+                        <i class="bi bi-box-arrow-in-right me-2 text-primary"></i>Iniciar sesión
+                    </h1>
+
+                    <!--
+                        Mensaje de error.
+                        Spring redirige a /login?error tras un intento fallido.
+                        ${param.error} captura ese parámetro de query string.
+                    -->
+                    <div th:if="${param.error}"
+                         class="alert alert-danger d-flex align-items-center mb-4"
+                         role="alert">
+                        <i class="bi bi-exclamation-triangle-fill me-2"></i>
+                        <span>Usuario y/o contraseña incorrectos.</span>
+                    </div>
+
+                    <!--
+                        Formulario de login.
+                        - method="post" y th:action="@{/login}": el token CSRF
+                          se inserta automáticamente por Thymeleaf.
+                        - Los names "username" y "password" son los que Spring
+                          espera por defecto. Aunque nuestro "username" es en
+                          realidad el email, mantenemos el name estándar para
+                          no tener que tocar más configuración.
+                    -->
+                    <form th:action="@{/login}" method="post">
+
+                        <div class="mb-3">
+                            <label for="username" class="form-label text-white">
+                                Email <span class="text-danger">*</span>
+                            </label>
+                            <input type="email" id="username" name="username"
+                                   class="form-control bg-dark text-white border-secondary"
+                                   placeholder="tucorreo@ejemplo.com"
+                                   required autofocus>
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="password" class="form-label text-white">
+                                Contraseña <span class="text-danger">*</span>
+                            </label>
+                            <input type="password" id="password" name="password"
+                                   class="form-control bg-dark text-white border-secondary"
+                                   placeholder="Tu contraseña"
+                                   required>
+                        </div>
+
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-primary btn-lg">
+                                <i class="bi bi-box-arrow-in-right me-1"></i>Entrar
+                            </button>
+                        </div>
+
+                    </form>
+
+                    <hr class="border-secondary my-4">
+
+                    <p class="text-center text-white-50 mb-0 small">
+                        ¿No tienes cuenta?
+                        <a th:href="@{/register}" class="text-primary">Regístrate</a>
+                    </p>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</main>
+
+</body>
+</html>

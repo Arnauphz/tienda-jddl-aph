@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<nav th:fragment="sidebar" class="col-md-3 col-lg-2 d-md-block bg-dark sidebar py-3 border-end border-secondary" style="min-height: calc(100vh - 56px);">
+    <ul class="nav flex-column">
+        <li class="nav-item">
+            <a class="nav-link text-white" href="/admin">
+                <i class="bi bi-speedometer2 me-2"></i>Inicio
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-white" href="/admin/marcas">
+                <i class="bi bi-tag me-2"></i>Marcas
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-white" href="/admin/productos">
+                <i class="bi bi-box-seam me-2"></i>Productos
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-white" href="/admin/categorias">
+                <i class="bi bi-grid me-2"></i>Categorías
+            </a>
+        </li>
+    </ul>
+</nav>
+</html>

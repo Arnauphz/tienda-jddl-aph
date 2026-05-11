@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="es"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head th:replace="~{fragments/head :: head('Mi perfil')}"></head>
+
+<body class="bg-dark text-white">
+
+<div th:replace="~{fragments/header :: header}"></div>
+
+<main class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-10 col-lg-8">
+
+            <!-- ── HERO ─────────────────────────────────────────────── -->
+            <div class="text-center mb-4">
+
+                <!-- Avatar con iniciales -->
+                <div class="d-inline-flex align-items-center justify-content-center
+                            rounded-circle mb-3 border border-3 border-success"
+                     style="width:96px; height:96px; background:#1a1a1a;">
+                    <span class="fw-bold text-success"
+                          style="font-size:2rem; letter-spacing:.05em;"
+                          th:text="${#strings.toUpperCase(#strings.substring(usuario.nombre,0,1))}
+                                 + ${#strings.toUpperCase(#strings.substring(usuario.apellidos,0,1))}">
+                        NA
+                    </span>
+                </div>
+
+                <h1 class="h3 fw-bold mb-1"
+                    th:text="${usuario.nombre} + ' ' + ${usuario.apellidos}">
+                    Nombre Apellidos
+                </h1>
+                <p class="text-white-50 mb-3" th:text="${usuario.email}">
+                    email@ejemplo.com
+                </p>
+
+                <!-- Badges de roles -->
+                <div class="d-flex justify-content-center gap-2">
+                    <span th:each="rol : ${usuario.roles}"
+                          th:classappend="${rol.id == 'ADMIN'} ? 'bg-danger' : 'bg-secondary'"
+                          class="badge rounded-pill px-3 py-2"
+                          th:text="${rol.id}">
+                        ROL
+                    </span>
+                </div>
+            </div>
+
+            <!-- ── DATOS PERSONALES ──────────────────────────────────── -->
+            <div class="card border-0 rounded-4 overflow-hidden"
+                 style="background:#1a1a1a;">
+
+                <div class="card-header border-bottom border-secondary px-4 py-3"
+                     style="background:#111;">
+                    <span class="text-success fw-semibold text-uppercase"
+                          style="font-size:.75rem; letter-spacing:.15em;">
+                        <i class="bi bi-person-vcard me-2"></i>Datos personales
+                    </span>
+                </div>
+
+                <div class="card-body p-0">
+
+                    <!-- Fila: Nombre -->
+                    <div class="d-flex align-items-center px-4 py-3 border-bottom border-secondary">
+                        <div class="me-3 text-success" style="width:20px;">
+                            <i class="bi bi-person"></i>
+                        </div>
+                        <div class="flex-grow-1">
+                            <small class="text-white-50 text-uppercase d-block"
+                                   style="font-size:.7rem; letter-spacing:.1em;">
+                                Nombre
+                            </small>
+                            <span th:text="${usuario.nombre}">—</span>
+                        </div>
+                    </div>
+
+                    <!-- Fila: Apellidos -->
+                    <div class="d-flex align-items-center px-4 py-3 border-bottom border-secondary">
+                        <div class="me-3 text-success" style="width:20px;">
+                            <i class="bi bi-person"></i>
+                        </div>
+                        <div class="flex-grow-1">
+                            <small class="text-white-50 text-uppercase d-block"
+                                   style="font-size:.7rem; letter-spacing:.1em;">
+                                Apellidos
+                            </small>
+                            <span th:text="${usuario.apellidos}">—</span>
+                        </div>
+                    </div>
+
+                    <!-- Fila: Email -->
+                    <div class="d-flex align-items-center px-4 py-3 border-bottom border-secondary">
+                        <div class="me-3 text-success" style="width:20px;">
+                            <i class="bi bi-envelope"></i>
+                        </div>
+                        <div class="flex-grow-1">
+                            <small class="text-white-50 text-uppercase d-block"
+                                   style="font-size:.7rem; letter-spacing:.1em;">
+                                Email
+                            </small>
+                            <span th:text="${usuario.email}">—</span>
+                        </div>
+                    </div>
+
+                    <!-- Fila: Teléfono -->
+                    <div class="d-flex align-items-center px-4 py-3 border-bottom border-secondary">
+                        <div class="me-3 text-success" style="width:20px;">
+                            <i class="bi bi-telephone"></i>
+                        </div>
+                        <div class="flex-grow-1">
+                            <small class="text-white-50 text-uppercase d-block"
+                                   style="font-size:.7rem; letter-spacing:.1em;">
+                                Teléfono
+                            </small>
+                            <span th:if="${usuario.telefono != null}"
+                                  th:text="${usuario.telefono}">—</span>
+                            <span th:if="${usuario.telefono == null}"
+                                  class="text-white-50 fst-italic">No indicado</span>
+                        </div>
+                    </div>
+
+                    <!-- Fila: Fecha de nacimiento -->
+                    <div class="d-flex align-items-center px-4 py-3 border-bottom border-secondary">
+                        <div class="me-3 text-success" style="width:20px;">
+                            <i class="bi bi-calendar-event"></i>
+                        </div>
+                        <div class="flex-grow-1">
+                            <small class="text-white-50 text-uppercase d-block"
+                                   style="font-size:.7rem; letter-spacing:.1em;">
+                                Fecha de nacimiento
+                            </small>
+                            <span th:if="${usuario.fechaNacimiento != null}"
+                                  th:text="${#temporals.format(usuario.fechaNacimiento, 'dd/MM/yyyy')}">—</span>
+                            <span th:if="${usuario.fechaNacimiento == null}"
+                                  class="text-white-50 fst-italic">No indicada</span>
+                        </div>
+                    </div>
+
+                    <!-- Fila: Miembro desde -->
+                    <div class="d-flex align-items-center px-4 py-3">
+                        <div class="me-3 text-success" style="width:20px;">
+                            <i class="bi bi-clock-history"></i>
+                        </div>
+                        <div class="flex-grow-1">
+                            <small class="text-white-50 text-uppercase d-block"
+                                   style="font-size:.7rem; letter-spacing:.1em;">
+                                Miembro desde
+                            </small>
+                            <span th:text="${#temporals.format(usuario.fechaRegistro, 'dd/MM/yyyy')}">—</span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</main>
+
+<div th:replace="~{fragments/footer :: footer}"></div>
+
+</body>
+</html>

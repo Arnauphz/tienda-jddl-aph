@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{admin/fragments/head :: head('Administración')}"></head>
+<body>
+
+<div th:replace="~{admin/fragments/header :: header}"></div>
+
+<div class="container-fluid">
+    <div class="row">
+        <div th:replace="~{admin/fragments/sidebar :: sidebar}"></div>
+
+        <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 py-4">
+            <h1 class="h2 mb-4">Panel de Administración</h1>
+
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="card text-bg-dark border-secondary h-100">
+                        <div class="card-body text-center py-5">
+                            <i class="bi bi-tag fs-1 mb-3 d-block text-primary"></i>
+                            <h5 class="card-title">Marcas</h5>
+                            <p class="card-text text-muted">Gestionar marcas de productos</p>
+                            <a href="/admin/marcas" class="btn btn-primary mt-2">Ir a marcas</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card text-bg-dark border-secondary h-100">
+                        <div class="card-body text-center py-5">
+                            <i class="bi bi-box-seam fs-1 mb-3 d-block text-success"></i>
+                            <h5 class="card-title">Productos</h5>
+                            <p class="card-text text-muted">Gestionar productos de la tienda</p>
+                            <a href="/admin/productos" class="btn btn-success mt-2">Ir a productos</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card text-bg-dark border-secondary h-100">
+                        <div class="card-body text-center py-5">
+                            <i class="bi bi-grid fs-1 mb-3 d-block text-warning"></i>
+                            <h5 class="card-title">Categorías</h5>
+                            <p class="card-text text-muted">Gestionar categorías de productos</p>
+                            <a href="/admin/categorias" class="btn btn-warning mt-2">Ir a categorías</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+
+</body>
+</html>
